@@ -108,7 +108,7 @@ function getLinearEquationRoot(a, b) {
  *   (0,1) (0,1)     => 0
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
-  return Math.atan2((y2, x2), (y1, x1));
+  return Math.atan2(y1, y2, x1, x2);
 }
 
 /**
@@ -157,7 +157,7 @@ function parseNumberFromString(value) {
  *   1,2,3   => 3.741657386773941
  */
 function getParallelepipedDiagonal(a, b, c) {
-  return Math.hypot(a, b, c);
+  return Math.sqrt(a ** 2 + b ** 2 + c ** 2);
 }
 
 /**
@@ -305,11 +305,12 @@ function getSumToN(n) {
  *   202 => 4  // (2+0+2)
  *   5   => 5  // 5
  */
-/* function getSumOfDigits(num) {
+function getSumOfDigits(num) {
   let sum = 0;
-  while (num !== 0) {
-    sum += num % 10;
-    num /= 10;
+  let number = num;
+  while (number) {
+    sum += number % 10;
+    number = Math.floor(number / 10);
   }
   return sum;
 }
@@ -403,8 +404,8 @@ function toFixed(number, fractionDigits) {
  * 12345, 7    => '12345.00'
  * 12.345, 4   => '12.35'
  */
-function toPrecision(/* number, precision */) {
-  throw new Error('Not implemented');
+function toPrecision(number, precision) {
+  return number.toPrecision(precision);
 }
 
 /**
@@ -466,7 +467,7 @@ function isInteger(number) {
  * 'abcdefgh'      => NaN
  */
 function getFloatOnString(str) {
-  return Number(str) ? Number.parseFloat(str) : NaN;
+  return Number.parseFloat(str);
 }
 
 /**
@@ -483,8 +484,8 @@ function getFloatOnString(str) {
  * '1.234', 2           => 1
  * '10', 8              => 8
  */
-function getIntegerOnString(/* str, base */) {
-  throw new Error('Not implemented');
+function getIntegerOnString(str, base) {
+  return Number.parseInt(str, base);
 }
 
 /**
@@ -637,8 +638,8 @@ function getHypotenuse(a, b) {
  */
 function getCountOfOddNumbers(number) {
   let count = 0;
-  for (let i = 0; i <= number; i += 1) {
-    if (i % 2 !== 0) {
+  for (let i = 1; i <= number; i += 1) {
+    if (Math.abs(i % 2) !== 0) {
       count += 1;
     }
   }
@@ -661,7 +662,7 @@ module.exports = {
   getCube,
   getFibonacciNumber,
   getSumToN,
-  // getSumOfDigits,
+  getSumOfDigits,
   isPowerOfTwo,
   getSine,
   numberToStringInBase,
