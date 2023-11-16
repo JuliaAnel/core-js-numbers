@@ -108,7 +108,9 @@ function getLinearEquationRoot(a, b) {
  *   (0,1) (0,1)     => 0
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
-  return Math.atan2(y1, y2, x1, x2);
+  const firstAngle = Math.atan2(y1, x1);
+  const secondAngle = Math.atan2(y2, x2);
+  return Math.abs(secondAngle - firstAngle);
 }
 
 /**
@@ -638,9 +640,18 @@ function getHypotenuse(a, b) {
  */
 function getCountOfOddNumbers(number) {
   let count = 0;
-  for (let i = 1; i <= number; i += 1) {
-    if (Math.abs(i % 2) !== 0) {
-      count += 1;
+  if (number >= 0) {
+    for (let i = 1; i <= number; i += 1) {
+      if (i % 2 !== 0) {
+        count += 1;
+      }
+    }
+  }
+  if (number < 0) {
+    for (let i = 0; i >= number; i -= 1) {
+      if (i % 2 !== 0) {
+        count += 1;
+      }
     }
   }
   return count;
